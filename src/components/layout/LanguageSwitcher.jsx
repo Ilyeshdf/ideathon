@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { FiGlobe } from 'react-icons/fi';
-import { useLanguage, LANGUAGES } from '../../contexts/LanguageContext';
+import { useTranslation } from '../../hooks/useTranslation';
+
+// Define language display names
+const LANGUAGES = {
+  'en': 'English',
+  'ar': 'العربية',
+  'fr': 'Français'
+};
 
 const LanguageSwitcher = () => {
-  const { language, changeLanguage } = useLanguage();
+  const { language, setLanguage, isRTL, supportedLanguages } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -11,18 +18,18 @@ const LanguageSwitcher = () => {
   };
 
   const handleLanguageChange = (lang) => {
-    changeLanguage(lang);
+    setLanguage(lang);
     setIsOpen(false);
   };
 
   // Get the language flag emoji based on language code
   const getLanguageFlag = (lang) => {
     switch (lang) {
-      case 'EN':
+      case 'en':
         return '🇬🇧';
-      case 'AR':
+      case 'ar':
         return '🇸🇦';
-      case 'FR':
+      case 'fr':
         return '🇫🇷';
       default:
         return '🌐';
@@ -38,13 +45,13 @@ const LanguageSwitcher = () => {
         aria-haspopup="true"
       >
         <FiGlobe className="h-5 w-5" />
-        <span className="hidden sm:inline-block">{LANGUAGES[language]}</span>
+        <span className="hidden sm:inline-block">{LANGUAGES[language] || language}</span>
         <span className="sm:hidden">{getLanguageFlag(language)}</span>
       </button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-          {Object.entries(LANGUAGES).map(([code, name]) => (
+          {supportedLanguages.map((code) => (
             <button
               key={code}
               onClick={() => handleLanguageChange(code)}
@@ -53,7 +60,7 @@ const LanguageSwitcher = () => {
               } flex items-center`}
             >
               <span className="mr-2">{getLanguageFlag(code)}</span>
-              <span>{name}</span>
+              <span>{LANGUAGES[code] || code}</span>
             </button>
           ))}
         </div>

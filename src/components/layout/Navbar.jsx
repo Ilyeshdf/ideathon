@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiMenu, FiX, FiUser, FiShoppingCart } from 'react-icons/fi';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
+import { useTranslation } from '../../hooks/useTranslation';
 import Logo from './Logo';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -10,6 +11,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser, logout, isRestaurant } = useAuth();
   const { itemCount } = useCart();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -38,12 +40,16 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/browse" className="text-gray-700 hover:text-primary font-medium">
-              Browse Meals
+              {t('navigation.home')}
+            </Link>
+            
+            <Link to="/restaurants" className="text-gray-700 hover:text-primary font-medium">
+              {t('navigation.restaurants')}
             </Link>
             
             {isRestaurant ? (
               <Link to="/restaurant/dashboard" className="text-gray-700 hover:text-primary font-medium">
-                Restaurant Dashboard
+                {t('restaurant.information')}
               </Link>
             ) : null}
             
@@ -65,18 +71,18 @@ const Navbar = () => {
                 <div className="relative group">
                   <button className="flex items-center space-x-1 text-gray-700 hover:text-primary font-medium">
                     <FiUser className="h-5 w-5" />
-                    <span>{currentUser.displayName || 'Account'}</span>
+                    <span>{currentUser.displayName || t('navigation.profile')}</span>
                   </button>
                   
                   <div className="absolute right-0 w-48 mt-2 py-2 bg-white rounded-md shadow-xl z-20 hidden group-hover:block">
                     <Link to="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                      Profile
+                      {t('navigation.profile')}
                     </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
                     >
-                      Sign Out
+                      {t('auth.logout')}
                     </button>
                   </div>
                 </div>
@@ -84,10 +90,10 @@ const Navbar = () => {
             ) : (
               <div className="flex items-center space-x-4">
                 <Link to="/login" className="text-gray-700 hover:text-primary font-medium">
-                  Log In
+                  {t('auth.login')}
                 </Link>
                 <Link to="/signup" className="btn btn-primary">
-                  Sign Up
+                  {t('auth.signup')}
                 </Link>
               </div>
             )}
@@ -126,7 +132,15 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
               className="text-gray-700 hover:text-primary font-medium py-2"
             >
-              Browse Meals
+              {t('navigation.home')}
+            </Link>
+            
+            <Link 
+              to="/restaurants" 
+              onClick={() => setIsOpen(false)}
+              className="text-gray-700 hover:text-primary font-medium py-2"
+            >
+              {t('navigation.restaurants')}
             </Link>
             
             {isRestaurant && (
@@ -135,7 +149,7 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className="text-gray-700 hover:text-primary font-medium py-2"
               >
-                Restaurant Dashboard
+                {t('restaurant.information')}
               </Link>
             )}
             
@@ -146,13 +160,13 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                   className="text-gray-700 hover:text-primary font-medium py-2"
                 >
-                  Profile
+                  {t('navigation.profile')}
                 </Link>
                 <button
                   onClick={handleLogout}
                   className="text-left text-gray-700 hover:text-primary font-medium py-2"
                 >
-                  Sign Out
+                  {t('auth.logout')}
                 </button>
               </>
             ) : (
@@ -162,14 +176,14 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                   className="text-gray-700 hover:text-primary font-medium py-2"
                 >
-                  Log In
+                  {t('auth.login')}
                 </Link>
                 <Link 
                   to="/signup" 
                   onClick={() => setIsOpen(false)}
                   className="btn btn-primary w-full text-center py-2"
                 >
-                  Sign Up
+                  {t('auth.signup')}
                 </Link>
               </>
             )}

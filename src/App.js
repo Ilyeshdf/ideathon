@@ -14,6 +14,8 @@ import CheckoutPage from './pages/CheckoutPage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/auth/LoginPage';
 import SignupPage from './pages/auth/SignupPage';
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
+import ResetPasswordPage from './pages/auth/ResetPasswordPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Restaurant Pages
@@ -56,6 +58,8 @@ function App() {
                 {/* Auth Routes */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/reset-password" element={<ResetPasswordPage />} />
                 
                 {/* Protected User Routes */}
                 <Route path="/checkout" element={

@@ -24,6 +24,76 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+/* RTL Support */
+body.rtl {
+  font-family: 'Open Sans', 'Segoe UI', Tahoma, Arial, sans-serif;
+}
+
+.rtl h1, 
+.rtl h2, 
+.rtl h3, 
+.rtl h4, 
+.rtl h5, 
+.rtl h6 {
+  font-family: 'Poppins', Tahoma, Arial, sans-serif;
+}
+
+.rtl .space-x-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .mr-1 {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}
+
+.rtl .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.rtl .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+.rtl .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+.rtl .ml-1 {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+.rtl .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+.rtl .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
 @layer components {
   .container-wrapper {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;

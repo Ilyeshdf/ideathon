@@ -1,0 +1,155 @@
+/* RTL (Right-to-Left) language support */
+
+/* Basic RTL layout */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Adjust flexbox and grid directions */
+.rtl .flex-row {
+  flex-direction: row-reverse;
+}
+
+.rtl .justify-start {
+  justify-content: flex-end;
+}
+
+.rtl .justify-end {
+  justify-content: flex-start;
+}
+
+/* Adjust margins and paddings */
+.rtl .ml-1, 
+.rtl .ml-2, 
+.rtl .ml-3, 
+.rtl .ml-4,
+.rtl .ml-5,
+.rtl .ml-6,
+.rtl .ml-8 {
+  margin-left: 0;
+}
+
+.rtl .mr-1, 
+.rtl .mr-2, 
+.rtl .mr-3, 
+.rtl .mr-4,
+.rtl .mr-5,
+.rtl .mr-6,
+.rtl .mr-8 {
+  margin-right: 0;
+}
+
+.rtl .ml-1 { margin-right: 0.25rem; }
+.rtl .ml-2 { margin-right: 0.5rem; }
+.rtl .ml-3 { margin-right: 0.75rem; }
+.rtl .ml-4 { margin-right: 1rem; }
+.rtl .ml-5 { margin-right: 1.25rem; }
+.rtl .ml-6 { margin-right: 1.5rem; }
+.rtl .ml-8 { margin-right: 2rem; }
+
+.rtl .mr-1 { margin-left: 0.25rem; }
+.rtl .mr-2 { margin-left: 0.5rem; }
+.rtl .mr-3 { margin-left: 0.75rem; }
+.rtl .mr-4 { margin-left: 1rem; }
+.rtl .mr-5 { margin-left: 1.25rem; }
+.rtl .mr-6 { margin-left: 1.5rem; }
+.rtl .mr-8 { margin-left: 2rem; }
+
+/* Adjust padding in the same way */
+.rtl .pl-1, 
+.rtl .pl-2, 
+.rtl .pl-3, 
+.rtl .pl-4,
+.rtl .pl-5,
+.rtl .pl-6 {
+  padding-left: 0;
+}
+
+.rtl .pr-1, 
+.rtl .pr-2, 
+.rtl .pr-3, 
+.rtl .pr-4,
+.rtl .pr-5,
+.rtl .pr-6 {
+  padding-right: 0;
+}
+
+.rtl .pl-1 { padding-right: 0.25rem; }
+.rtl .pl-2 { padding-right: 0.5rem; }
+.rtl .pl-3 { padding-right: 0.75rem; }
+.rtl .pl-4 { padding-right: 1rem; }
+.rtl .pl-5 { padding-right: 1.25rem; }
+.rtl .pl-6 { padding-right: 1.5rem; }
+
+.rtl .pr-1 { padding-left: 0.25rem; }
+.rtl .pr-2 { padding-left: 0.5rem; }
+.rtl .pr-3 { padding-left: 0.75rem; }
+.rtl .pr-4 { padding-left: 1rem; }
+.rtl .pr-5 { padding-left: 1.25rem; }
+.rtl .pr-6 { padding-left: 1.5rem; }
+
+/* Text alignment */
+.rtl .text-left {
+  text-align: right;
+}
+
+.rtl .text-right {
+  text-align: left;
+}
+
+/* Border adjustments */
+.rtl .border-l {
+  border-left: none;
+  border-right: 1px solid;
+}
+
+.rtl .border-r {
+  border-right: none;
+  border-left: 1px solid;
+}
+
+/* Adjust positions for absolute positioned elements */
+.rtl .right-0 {
+  right: auto;
+  left: 0;
+}
+
+.rtl .left-0 {
+  left: auto;
+  right: 0;
+}
+
+/* Adjust icons and other UI elements that need mirroring */
+.rtl .icon-chevron-right:before {
+  content: "\e902"; /* Replace with your left chevron icon code */
+}
+
+.rtl .icon-chevron-left:before {
+  content: "\e903"; /* Replace with your right chevron icon code */
+}
+
+/* Adjust specific component styles as needed */
+.rtl .language-switcher {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .navbar .dropdown-menu {
+  left: 0;
+  right: auto;
+  text-align: right;
+}
+
+/* Fix input fields in RTL mode */
+.rtl input[type="text"],
+.rtl input[type="email"],
+.rtl input[type="password"],
+.rtl textarea {
+  text-align: right;
+}
+
+.rtl input[placeholder],
+.rtl textarea[placeholder] {
+  text-align: right;
+} 

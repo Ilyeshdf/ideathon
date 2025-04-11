@@ -1,54 +1,79 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import translations from '../translations';
 
-// Create language context
-const LanguageContext = createContext();
+// Default language
+const DEFAULT_LANGUAGE = 'en';
 
-// Language options
-export const LANGUAGES = {
-  EN: 'English',
-  AR: 'العربية',
-  FR: 'Français'
-};
+// Languages with RTL support
+const RTL_LANGUAGES = ['ar'];
 
-export function useLanguage() {
-  return useContext(LanguageContext);
-}
+// Create the context
+export const LanguageContext = createContext();
 
-export function LanguageProvider({ children }) {
+/**
+ * Language context provider component
+ * @param {Object} props Component props
+ * @param {React.ReactNode} props.children Child components
+ */
+export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
-    // Load saved language preference from localStorage, default to English
+    // Try to get the language from localStorage or use the default
     const savedLanguage = localStorage.getItem('language');
-    return savedLanguage || 'EN';
+    return savedLanguage || DEFAULT_LANGUAGE;
   });
 
-  // Save language preference to localStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('language', language);
-    
-    // You can also update the document's lang attribute
-    document.documentElement.lang = language.toLowerCase();
-    
-    // For RTL languages like Arabic
-    if (language === 'AR') {
-      document.documentElement.dir = 'rtl';
-    } else {
-      document.documentElement.dir = 'ltr';
-    }
-  }, [language]);
+  // Determine if the current language is RTL
+  const isRTL = RTL_LANGUAGES.includes(language);
 
-  const changeLanguage = (lang) => {
-    setLanguage(lang);
+  // Translation function
+  const t = (key) => {
+    // Split the key by dots to allow for nested keys
+    const keys = key.split('.');
+    
+    // Get the translation object for the current language
+    const translationObj = translations[language] || translations[DEFAULT_LANGUAGE];
+    
+    // Navigate through the nested keys
+    let result = translationObj;
+    for (const k of keys) {
+      result = result?.[k];
+      if (result === undefined) break;
+    }
+    
+    // Return the translation or the key itself if not found
+    return result || key;
   };
 
-  const value = {
+  // Apply RTL class to body when language changes
+  useEffect(() => {
+    // Save the selected language to localStorage
+    localStorage.setItem('language', language);
+    
+    // Add or remove RTL class based on the language
+    if (isRTL) {
+      document.body.classList.add('rtl');
+    } else {
+      document.body.classList.remove('rtl');
+    }
+    
+    // Set the HTML lang attribute
+    document.documentElement.lang = language;
+  }, [language, isRTL]);
+
+  // Context value
+  const contextValue = {
     language,
-    changeLanguage,
-    languages: LANGUAGES
+    setLanguage,
+    t,
+    isRTL,
+    supportedLanguages: Object.keys(translations),
   };
 
   return (
-    <LanguageContext.Provider value={value}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
-} 
+};
+
+export default LanguageProvider; 
